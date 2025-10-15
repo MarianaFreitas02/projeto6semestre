@@ -1,4 +1,4 @@
-# projeto6semestre
+# Projeto Integrador 6º Semetre - Aplicativo
 
 A new Flutter project.
 
