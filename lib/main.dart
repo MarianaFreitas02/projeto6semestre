@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
         '/login': (context) => const LoginScreen(),
         '/home': (context) => const HomeScreen(),
         '/profile': (context) => const ProfileScreen(),
-        '/edit-profile': (context) => const EditProfileScreen(),        
+        '/edit-profile': (context) => const EditProfileScreen(),
       },
     );
   }
@@ -549,16 +549,14 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             const SizedBox(height: 15),
-            ..._filteredPlaces
-                .map(
-                  (place) => Padding(
-                    padding: const EdgeInsets.only(
-                      bottom: 15.0,
-                    ), // Espaçamento entre os cards
-                    child: _buildPlaceCard(context, place),
-                  ),
-                )
-                .toList(),
+            ..._filteredPlaces.map(
+              (place) => Padding(
+                padding: const EdgeInsets.only(
+                  bottom: 15.0,
+                ), // Espaçamento entre os cards
+                child: _buildPlaceCard(context, place),
+              ),
+            ),
           ],
         ),
       ),
@@ -761,7 +759,10 @@ class ProfileScreen extends StatelessWidget {
             // ✅ BOTÃO CORRIGIDO - AGORA VAI PARA A TELA DE EDITAR PERFIL
             ElevatedButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/edit-profile'); // ✅ NAVEGAÇÃO CORRETA
+                Navigator.pushNamed(
+                  context,
+                  '/edit-profile',
+                ); // ✅ NAVEGAÇÃO CORRETA
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFFFFC107),
@@ -824,7 +825,10 @@ class PlaceDetailsScreen extends StatelessWidget {
         ),
         title: Text(
           place.name,
-          style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          style: const TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         centerTitle: true,
       ),
@@ -844,7 +848,7 @@ class PlaceDetailsScreen extends StatelessWidget {
               child: const Icon(Icons.store, size: 80, color: Colors.grey),
             ),
             const SizedBox(height: 20),
-            
+
             // Informações básicas
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -860,7 +864,10 @@ class PlaceDetailsScreen extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 6,
+                  ),
                   decoration: BoxDecoration(
                     color: const Color(0xFFFFC107),
                     borderRadius: BorderRadius.circular(20),
@@ -876,9 +883,9 @@ class PlaceDetailsScreen extends StatelessWidget {
                 ),
               ],
             ),
-            
+
             const SizedBox(height: 8),
-            
+
             Text(
               place.subCategory,
               style: TextStyle(
@@ -887,19 +894,16 @@ class PlaceDetailsScreen extends StatelessWidget {
                 fontWeight: FontWeight.w500,
               ),
             ),
-            
+
             const SizedBox(height: 5),
-            
+
             Text(
               place.category,
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.grey[500],
-              ),
+              style: TextStyle(fontSize: 16, color: Colors.grey[500]),
             ),
-            
+
             const SizedBox(height: 25),
-            
+
             // Recursos de acessibilidade
             const Text(
               'Recursos de Acessibilidade',
@@ -909,9 +913,9 @@ class PlaceDetailsScreen extends StatelessWidget {
                 color: Color(0xFF0A2463),
               ),
             ),
-            
+
             const SizedBox(height: 15),
-            
+
             Wrap(
               spacing: 10,
               runSpacing: 10,
@@ -919,36 +923,32 @@ class PlaceDetailsScreen extends StatelessWidget {
                   .map((feature) => _buildDetailedFeatureChip(feature))
                   .toList(),
             ),
-            
+
             const SizedBox(height: 30),
-            
+
             // Horário de funcionamento
             _buildInfoSection(
               'Horário de Funcionamento',
               Icons.access_time,
               'Segunda a Sexta: 08:00 - 20:00\nSábado: 09:00 - 18:00\nDomingo: 09:00 - 14:00',
             ),
-            
+
             const SizedBox(height: 25),
-            
+
             // Endereço
             _buildInfoSection(
               'Endereço',
               Icons.location_on,
               'Rua Exemplo, 123\nCentro, Cidade - Estado\nCEP: 12345-678',
             ),
-            
+
             const SizedBox(height: 25),
-            
+
             // Telefone
-            _buildInfoSection(
-              'Contato',
-              Icons.phone,
-              '(11) 9999-9999',
-            ),
-            
+            _buildInfoSection('Contato', Icons.phone, '(11) 9999-9999'),
+
             const SizedBox(height: 30),
-            
+
             // Botões de ação
             Row(
               children: [
@@ -1003,9 +1003,9 @@ class PlaceDetailsScreen extends StatelessWidget {
                 ),
               ],
             ),
-            
+
             const SizedBox(height: 20),
-            
+
             // Botão de favoritar
             SizedBox(
               width: double.infinity,
@@ -1101,10 +1101,7 @@ class PlaceDetailsScreen extends StatelessWidget {
                 ),
                 Text(
                   description,
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.grey[600],
-                  ),
+                  style: TextStyle(fontSize: 12, color: Colors.grey[600]),
                 ),
               ],
             ),
@@ -1166,7 +1163,9 @@ class PlaceDetailsScreen extends StatelessWidget {
                 // Aqui você implementaria a abertura no mapa
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
-                    content: Text('Abrindo localização do ${place.name} no mapa...'),
+                    content: Text(
+                      'Abrindo localização do ${place.name} no mapa...',
+                    ),
                     backgroundColor: Colors.green,
                   ),
                 );
@@ -1231,14 +1230,16 @@ class EditProfileScreen extends StatefulWidget {
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
   final _formKey = GlobalKey<FormState>();
-  
+
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
-  final TextEditingController _currentPasswordController = TextEditingController();
+  final TextEditingController _currentPasswordController =
+      TextEditingController();
   final TextEditingController _newPasswordController = TextEditingController();
-  final TextEditingController _confirmPasswordController = TextEditingController();
-  
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
+
   bool _isCurrentPasswordVisible = false;
   bool _isNewPasswordVisible = false;
   bool _isConfirmPasswordVisible = false;
@@ -1264,7 +1265,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   void _saveProfile() {
     if (_formKey.currentState!.validate()) {
-      if (_newPasswordController.text.isNotEmpty && 
+      if (_newPasswordController.text.isNotEmpty &&
           _newPasswordController.text != _confirmPasswordController.text) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
@@ -1281,7 +1282,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           backgroundColor: Colors.green,
         ),
       );
-      
+
       Future.delayed(const Duration(seconds: 1), () {
         Navigator.pop(context);
       });
@@ -1324,7 +1325,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         const CircleAvatar(
                           radius: 50,
                           backgroundColor: Color(0xFF0A2463),
-                          child: Icon(Icons.person, size: 60, color: Colors.white),
+                          child: Icon(
+                            Icons.person,
+                            size: 60,
+                            color: Colors.white,
+                          ),
                         ),
                         Positioned(
                           bottom: 0,
@@ -1338,7 +1343,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               border: Border.all(color: Colors.white, width: 2),
                             ),
                             child: IconButton(
-                              icon: const Icon(Icons.camera_alt, size: 18, color: Colors.black),
+                              icon: const Icon(
+                                Icons.camera_alt,
+                                size: 18,
+                                color: Colors.black,
+                              ),
                               onPressed: () {},
                             ),
                           ),
@@ -1403,21 +1412,27 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 controller: _currentPasswordController,
                 label: 'Senha Atual',
                 isVisible: _isCurrentPasswordVisible,
-                onToggleVisibility: () => setState(() => _isCurrentPasswordVisible = !_isCurrentPasswordVisible),
+                onToggleVisibility: () => setState(
+                  () => _isCurrentPasswordVisible = !_isCurrentPasswordVisible,
+                ),
               ),
               const SizedBox(height: 15),
               _buildPasswordField(
                 controller: _newPasswordController,
                 label: 'Nova Senha',
                 isVisible: _isNewPasswordVisible,
-                onToggleVisibility: () => setState(() => _isNewPasswordVisible = !_isNewPasswordVisible),
+                onToggleVisibility: () => setState(
+                  () => _isNewPasswordVisible = !_isNewPasswordVisible,
+                ),
               ),
               const SizedBox(height: 15),
               _buildPasswordField(
                 controller: _confirmPasswordController,
                 label: 'Confirmar Nova Senha',
                 isVisible: _isConfirmPasswordVisible,
-                onToggleVisibility: () => setState(() => _isConfirmPasswordVisible = !_isConfirmPasswordVisible),
+                onToggleVisibility: () => setState(
+                  () => _isConfirmPasswordVisible = !_isConfirmPasswordVisible,
+                ),
               ),
 
               const SizedBox(height: 40),
